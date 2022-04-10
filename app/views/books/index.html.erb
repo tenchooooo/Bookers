@@ -1,0 +1,28 @@
+<body>
+
+  <form class="new_book" id="new_book" action="/books" accept-charset="UTF-8" method="post">
+    <h1>Books</h1>
+    <% @books.each do |book| %>
+      <p>title</p>
+      <span>
+        <%= book.title %>
+      </span>
+      <%= link_to "show", book_path(book.id) %>
+      <%= link_to "edit", edit_book_path(book.id) %>
+      <%= link_to "destroy", book_path(book.id), method: :delete, "data-confirm" =>"Are you sure？" %>
+      
+
+    <% end %>
+
+    <h2>New book</h2>
+    <%= form_with model: @book, url: '/books',method: :post do |f| %>
+    <h4>Title</h4>
+    <%= f.text_field :title %>
+
+    <h4>Body</h4>
+    <%= f.text_area :body %>
+
+    <%=f.submit 'Create Book' %>
+    <% end %>
+  </form>
+</body>

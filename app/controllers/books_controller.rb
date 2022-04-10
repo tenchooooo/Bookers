@@ -5,9 +5,13 @@ class BooksController < ApplicationController
   end
 
   def create
-    book = Book.new(book_params) #データを受け取り新規登録するためのインスタンス
-    book.save #データをデータベースに保存するためのsaveメソッド実行
-    redirect_to book_path(book.id)
+    @book = Book.new(book_params) #データを受け取り新規登録するためのインスタンス
+    if @book.save #データをデータベースに保存するためのsaveメソッド実行
+      redirect_to book_path(@book.id)
+    else
+      @books = Book.all
+      render :index
+    end
   end
 
   def show
